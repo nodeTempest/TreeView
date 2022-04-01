@@ -5,6 +5,10 @@ interface IStyledTreeViewContainerProps {
 }
 
 export const StyledTreeViewContainer = styled.div<IStyledTreeViewContainerProps>`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
   ${(props) =>
     props.$level &&
     css`
@@ -12,4 +16,6 @@ export const StyledTreeViewContainer = styled.div<IStyledTreeViewContainerProps>
     `}
 `;
 
-export const StyledTreeViewItem = styled.div``;
+export const StyledTreeViewItem = styled.div`
+  cursor: pointer;
+`;
