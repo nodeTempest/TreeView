@@ -20,7 +20,7 @@ export const TreeView: React.FC<ITreeViewProps> = ({ data, level = 0, onExpand =
         const isExpanded = expandedIndices.includes(index);
         const hasNodes = !!nodes.length;
         return (
-          <>
+          <React.Fragment key={index}>
             <StyledTreeViewItem
               key={index}
               className="tree-view-item"
@@ -39,7 +39,7 @@ export const TreeView: React.FC<ITreeViewProps> = ({ data, level = 0, onExpand =
               {title}
             </StyledTreeViewItem>
             <>{hasNodes && isExpanded && <TreeView data={nodes} level={level + 1} />}</>
-          </>
+          </React.Fragment>
         );
       })}
     </StyledTreeViewContainer>
