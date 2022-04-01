@@ -35,12 +35,11 @@ export const StyledTreeViewItem = styled.div<StyledTreeViewItemProps>`
   svg {
     width: 16px;
     height: 16px;
-    transition: all 200ms;
 
     ${(props) =>
       props.$isExpanded &&
       css`
-        transform: rotate(180deg);
+        transform: rotate(-180deg);
       `}
   }
 `;
