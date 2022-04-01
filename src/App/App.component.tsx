@@ -6,7 +6,7 @@ import data from "./data.json";
 export const App = () => {
   return (
     <StyledApp>
-      <TreeView data={data as any as TreeViewDataType} />
+      <TreeView data={data as any as TreeViewDataType} onExpand={(...args) => console.log(args)} />
     </StyledApp>
   );
 };
