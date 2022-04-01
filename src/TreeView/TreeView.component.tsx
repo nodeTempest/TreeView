@@ -1,5 +1,4 @@
 import React from "react";
-import { nanoid } from "nanoid";
 
 import { StyledTreeViewContainer, StyledTreeViewItem } from "./TreeView.styled";
 import { ChevronDown } from "../icons/svg/ChevronDown";
@@ -23,7 +22,7 @@ export const TreeView: React.FC<ITreeViewProps> = ({ data, level = 0, onExpand =
         return (
           <>
             <StyledTreeViewItem
-              key={nanoid()}
+              key={index}
               className="tree-view-item"
               onClick={(_) => {
                 if (isExpanded) {

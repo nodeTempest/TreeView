@@ -35,6 +35,7 @@ export const StyledTreeViewItem = styled.div<StyledTreeViewItemProps>`
   svg {
     width: 16px;
     height: 16px;
+    transition: all 200ms;
 
     ${(props) =>
       props.$isExpanded &&
