@@ -1,11 +1,15 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 interface IStyledTreeViewContainerProps {
   $level: number;
 }
 
 export const StyledTreeViewContainer = styled.div<IStyledTreeViewContainerProps>`
-  padding-left: 20px;
+  ${(props) =>
+    props.$level &&
+    css`
+      padding-left: 20px;
+    `}
 `;
 
 export const StyledTreeViewItem = styled.div``;
