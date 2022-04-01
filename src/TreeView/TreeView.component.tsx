@@ -2,6 +2,7 @@ import React from "react";
 import { nanoid } from "nanoid";
 
 import { StyledTreeViewContainer, StyledTreeViewItem } from "./TreeView.styled";
+import { ChevronDown } from "../icons/svg/ChevronDown";
 
 export type TreeViewDataType = { title: string; nodes: TreeViewDataType }[];
 
@@ -16,29 +17,32 @@ export const TreeView: React.FC<ITreeViewProps> = ({ data, level = 0, onExpand =
 
   return (
     <StyledTreeViewContainer className="tree-view-container" $level={level}>
-      {data.map(({ title, nodes }, index) => (
-        <>
-          <StyledTreeViewItem
-            key={nanoid()}
-            className="tree-view-item"
-            onClick={(_) => {
-              if (expandedIndices.includes(index)) {
-                setExpandedIndices(expandedIndices.filter((itemIndex) => itemIndex !== index));
-              } else {
-                setExpandedIndices([...expandedIndices, index]);
-              }
-              onExpand({ title, nodes });
-            }}
-          >
-            {title}
-          </StyledTreeViewItem>
+      {data.map(({ title, nodes }, index) => {
+        const isExpanded = expandedIndices.includes(index);
+        const hasNodes = !!nodes.length;
+        return (
           <>
-            {!!nodes.length && expandedIndices.includes(index) && (
-              <TreeView data={nodes} level={level + 1} />
-            )}
+            <StyledTreeViewItem
+              key={nanoid()}
+              className="tree-view-item"
+              onClick={(_) => {
+                if (isExpanded) {
+                  setExpandedIndices(expandedIndices.filter((itemIndex) => itemIndex !== index));
+                } else {
+                  setExpandedIndices([...expandedIndices, index]);
+                }
+                onExpand({ title, nodes });
+              }}
+              $isExpanded={isExpanded}
+              $hasNodes={hasNodes}
+            >
+              {hasNodes && <ChevronDown />}
+              {title}
+            </StyledTreeViewItem>
+            <>{hasNodes && isExpanded && <TreeView data={nodes} level={level + 1} />}</>
           </>
-        </>
-      ))}
+        );
+      })}
     </StyledTreeViewContainer>
   );
 };
