@@ -8,10 +8,10 @@ export type TreeViewDataType = { title: string; nodes: TreeViewDataType }[];
 interface ITreeViewProps {
   data: TreeViewDataType;
   level?: number;
-  onExpand?: (node: TreeViewDataType[0], options: { isExpanded: boolean; level: number }) => void;
+  onToggle?: (node: TreeViewDataType[0], options: { isExpanded: boolean; level: number }) => void;
 }
 
-export const TreeView: React.FC<ITreeViewProps> = ({ data, level = 0, onExpand = () => {} }) => {
+export const TreeView: React.FC<ITreeViewProps> = ({ data, level = 0, onToggle = () => {} }) => {
   const [expandedIndices, setExpandedIndices] = React.useState<number[]>([]);
 
   return (
@@ -30,7 +30,7 @@ export const TreeView: React.FC<ITreeViewProps> = ({ data, level = 0, onExpand =
                 } else {
                   setExpandedIndices([...expandedIndices, index]);
                 }
-                onExpand({ title, nodes }, { isExpanded: !isExpanded, level });
+                onToggle({ title, nodes }, { isExpanded: !isExpanded, level });
               }}
               $isExpanded={isExpanded}
               $hasNodes={hasNodes}
@@ -40,7 +40,7 @@ export const TreeView: React.FC<ITreeViewProps> = ({ data, level = 0, onExpand =
             </StyledTreeViewItem>
             <>
               {hasNodes && isExpanded && (
-                <TreeView data={nodes} level={level + 1} onExpand={onExpand} />
+                <TreeView data={nodes} level={level + 1} onToggle={onToggle} />
               )}
             </>
           </React.Fragment>
