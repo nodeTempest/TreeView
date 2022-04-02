@@ -2,8 +2,6 @@ import React from "react";
 import { StyledApp } from "./App.styled";
 import { TreeViewDataType, TreeView } from "../TreeView/TreeView.component";
 
-import data from "./data.json";
-
 const loadTreeData = async () => {
   try {
     const json = await fetch("./data.json");
@@ -16,9 +14,15 @@ const loadTreeData = async () => {
 };
 
 export const App = () => {
+  const [data, setData] = React.useState<TreeViewDataType | null>(null);
+
+  React.useEffect(() => {
+    loadTreeData().then((data) => setData(data));
+  }, []);
+
   return (
     <StyledApp>
-      <TreeView data={data as any as TreeViewDataType} onToggle={(...args) => console.log(args)} />
+      {data && <TreeView data={data!} onToggle={(...args) => console.log(args)} />}
     </StyledApp>
   );
 };
