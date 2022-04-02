@@ -1,46 +1,32 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-interface IStyledTreeViewContainerProps {
-  $level: number;
-}
-
-export const StyledTreeViewContainer = styled.div<IStyledTreeViewContainerProps>`
+export const StyledTreeViewContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
-  ${(props) =>
-    props.$level &&
-    css`
-      padding-left: 20px;
-    `}
+  &.nested {
+    padding-left: 20px;
+  }
 `;
 
-interface StyledTreeViewItemProps {
-  $isExpanded: boolean;
-  $hasNodes: boolean;
-}
-
-export const StyledTreeViewItem = styled.div<StyledTreeViewItemProps>`
+export const StyledTreeViewItem = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
+  user-select: none;
 
-  ${(props) =>
-    !props.$hasNodes &&
-    css`
-      padding-left: 16px;
-    `}
+  &.nodes-empty {
+    padding-left: 16px;
+  }
 
   svg {
     width: 16px;
     height: 16px;
     transition: all 200ms;
+  }
 
-    ${(props) =>
-      props.$isExpanded &&
-      css`
-        transform: rotate(-180deg);
-      `}
+  &.expanded svg {
+    transform: rotate(-180deg);
   }
 `;

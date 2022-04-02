@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 
 import { StyledTreeViewContainer, StyledTreeViewItem } from "./TreeView.styled";
 import { ChevronDown } from "../icons/svg/ChevronDown";
@@ -19,7 +20,7 @@ export const TreeViewRecursive: React.FC<ITreeViewRecursiveProps> = ({
   const [expandedIndices, setExpandedIndices] = React.useState<number[]>([]);
 
   return (
-    <StyledTreeViewContainer className="tree-view-container" $level={level}>
+    <StyledTreeViewContainer className={clsx("tree-view-container", { nested: level !== 0 })}>
       {data.map(({ title, nodes }, index) => {
         const isExpanded = expandedIndices.includes(index);
         const hasNodes = !!nodes.length;
@@ -27,7 +28,7 @@ export const TreeViewRecursive: React.FC<ITreeViewRecursiveProps> = ({
           <React.Fragment key={index}>
             <StyledTreeViewItem
               key={index}
-              className="tree-view-item"
+              className={clsx("tree-view-item", { expanded: isExpanded, "nodes-empty": !hasNodes })}
               onClick={(_) => {
                 if (isExpanded) {
                   setExpandedIndices(expandedIndices.filter((itemIndex) => itemIndex !== index));
@@ -36,8 +37,6 @@ export const TreeViewRecursive: React.FC<ITreeViewRecursiveProps> = ({
                 }
                 onToggle({ title, nodes }, { isExpanded: !isExpanded, level });
               }}
-              $isExpanded={isExpanded}
-              $hasNodes={hasNodes}
             >
               {hasNodes && <ChevronDown />}
               {title}
