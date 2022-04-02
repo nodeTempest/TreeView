@@ -5,13 +5,17 @@ import { ChevronDown } from "../icons/svg/ChevronDown";
 
 export type TreeViewDataType = { title: string; nodes: TreeViewDataType }[];
 
-interface ITreeViewProps {
+interface ITreeViewRecursiveProps {
   data: TreeViewDataType;
   level?: number;
   onToggle?: (node: TreeViewDataType[0], options: { isExpanded: boolean; level: number }) => void;
 }
 
-export const TreeView: React.FC<ITreeViewProps> = ({ data, level = 0, onToggle = () => {} }) => {
+export const TreeViewRecursive: React.FC<ITreeViewRecursiveProps> = ({
+  data,
+  level = 0,
+  onToggle = () => {},
+}) => {
   const [expandedIndices, setExpandedIndices] = React.useState<number[]>([]);
 
   return (
@@ -40,7 +44,7 @@ export const TreeView: React.FC<ITreeViewProps> = ({ data, level = 0, onToggle =
             </StyledTreeViewItem>
             <>
               {hasNodes && isExpanded && (
-                <TreeView data={nodes} level={level + 1} onToggle={onToggle} />
+                <TreeViewRecursive data={nodes} level={level + 1} onToggle={onToggle} />
               )}
             </>
           </React.Fragment>
@@ -48,4 +52,8 @@ export const TreeView: React.FC<ITreeViewProps> = ({ data, level = 0, onToggle =
       })}
     </StyledTreeViewContainer>
   );
+};
+
+export const TreeView: React.FC<Omit<ITreeViewRecursiveProps, "level">> = (props) => {
+  return <TreeViewRecursive {...props} />;
 };
