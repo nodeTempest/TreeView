@@ -12,7 +12,7 @@ interface ITreeViewRecursiveProps {
   onToggle?: (node: TreeViewDataType[0], options: { isExpanded: boolean; level: number }) => void;
 }
 
-export const TreeViewRecursive: React.FC<ITreeViewRecursiveProps> = ({
+const TreeViewRecursive: React.FC<ITreeViewRecursiveProps> = ({
   data,
   level = 0,
   onToggle = () => {},
@@ -27,9 +27,8 @@ export const TreeViewRecursive: React.FC<ITreeViewRecursiveProps> = ({
         return (
           <React.Fragment key={index}>
             <StyledTreeViewItem
-              key={index}
               className={clsx("tree-view-item", { expanded: isExpanded, "nodes-empty": !hasNodes })}
-              onClick={(_) => {
+              onClick={() => {
                 if (isExpanded) {
                   setExpandedIndices(expandedIndices.filter((itemIndex) => itemIndex !== index));
                 } else {
