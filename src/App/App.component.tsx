@@ -1,6 +1,7 @@
 import React from "react";
 import { StyledApp } from "./App.styled";
-import { TreeViewDataType, TreeView } from "../TreeView/TreeView.component";
+import { TreeView } from "../TreeView/TreeView.component";
+import { TreeViewDataType } from "../TreeView/TreeView.types";
 
 const loadTreeData = async () => {
   try {

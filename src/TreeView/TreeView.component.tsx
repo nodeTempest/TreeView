@@ -3,8 +3,7 @@ import clsx from "clsx";
 
 import { StyledTreeViewContainer, StyledTreeViewItem } from "./TreeView.styled";
 import { ChevronDown } from "../icons/svg/ChevronDown";
-
-export type TreeViewDataType = { title: string; nodes: TreeViewDataType }[];
+import { TreeViewDataType } from "./TreeView.types";
 
 interface ITreeViewRecursiveProps {
   data: TreeViewDataType;
