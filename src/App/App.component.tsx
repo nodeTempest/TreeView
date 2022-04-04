@@ -21,9 +21,5 @@ export const App = () => {
     loadTreeData().then((data) => setData(data));
   }, []);
 
-  return (
-    <StyledApp>
-      {data && <TreeView data={data!} onToggle={(...args) => console.log(args)} />}
-    </StyledApp>
-  );
+  return <StyledApp>{data && <TreeView data={data!} />}</StyledApp>;
 };
